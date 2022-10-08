@@ -1,1 +1,1 @@
-Proyectos creados por David RN basados en lo aprendido para NodeJS
+Socket.io server that creates a chat room with multiple clients
