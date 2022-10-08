@@ -27,7 +27,7 @@ app.use(cors());
 app.use(morgan('combined'));
 
 // Define the client folder
-app.use('/static', express.static('public'))
+app.use('/static', express.static(path.join(__dirname, 'public')))
 
 // Defining an endpoint to return client html
 app.get('/', (req, res) => {
