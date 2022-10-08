@@ -2,16 +2,18 @@
   "name": "servidor-socket",
   "version": "1.0.0",
   "description": "Testing del socket.io",
-  "main": "app.js",
+  "main": "main.js",
   "dependencies": {
     "express": "^4.16.2",
     "http": "0.0.0",
     "socket.io": "^2.0.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "nodemon app.js"
+    "start": "node main.js",
+    "start:dev": "nodemon main.js"
   },
   "author": "",
   "license": "ISC"
