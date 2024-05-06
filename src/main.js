@@ -1,12 +1,12 @@
-// Basic imports
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const http = require('http');
-const path = require('path')
-const sockets = require('./socket/init');
+import bodyParser from "body-parser";
+import cors from "cors";
+import express from "express";
+import helmet from "helmet";
+import { createServer } from "http";
+import morgan from "morgan";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+import sockets from "./socket/init.js"; // Assuming init.js is also an ES module
 
 // Basic variables
 const port = 3000;
@@ -24,20 +24,22 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Adding morgan to log HTTP requests
-app.use(morgan('combined'));
+app.use(morgan("combined"));
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Define the client folder
-app.use('/static', express.static(path.join(__dirname, 'public')))
+app.use("/static", express.static(join(__dirname, "public")));
 
 // Defining an endpoint to return client html
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
-  });
+app.get("/", (req, res) => {
+  res.sendFile(join(__dirname, "public/index.html"));
+});
 
 // Starting socket and server
-const server = http.createServer(app);
+const server = createServer(app);
 sockets(server);
 
 server.listen(port, () => {
-  console.log(`listening @ localhost:${port}`);
+  console.log(`Listening @ localhost:${port}`);
 });

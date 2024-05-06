@@ -1,9 +1,17 @@
+import { Server } from "socket.io";
 
-module.exports = (server) => {
-  const { Server } = require('socket.io');
-  const io = new Server(server)
+export default (server) => {
+  const io = new Server(server);
 
-  io.on('connection', function (socket) {
-    console.log('a user connected');
+  io.on("connection", (socket) => {
+    console.log("a user connected");
+
+    socket.on("disconnect", () => {
+      console.log("user disconnected");
+    });
+
+    socket.on("chat message", (msg) => {
+      io.emit("chat message", msg);
+    });
   });
 };
